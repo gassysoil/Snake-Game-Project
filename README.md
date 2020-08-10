@@ -30,34 +30,43 @@ In this project, you can build your own C++ application or extend this Snake gam
 3. Compile: `cmake .. && make`
 4. Run it: `./SnakeGame`.
 
-## Newly Added Functionality
+## Rubric Points Addressed
+1. The project demonstrates an understanding of C++ functions and control structures.
+    A variety of control structures are used in the project. The project code is clearly organized into functions.
 
-The goal of my modifications was to add a new mode to the game where the user can watch a simple AI playing the game. Hence, before generating the game window, I request the user whether they would like to play the game or watch the AI. The user mode is exactly the same as in the initial repository. The `player.h` and `player.cpp` files contain the implementation of the AI agent. The original files are only sparsely modified:
+Reponse: Please refer to modified `main.cpp`, as well as newly added `gamer.h` and `gamer.cpp`. 
 
-1. `main.cpp` now reads the user input to set the game mode.
-2. `game.h` and `game.cpp`. The `Game` class uniquely owns the `Player` instance that is initialized on the heap. The game constructor receives the game mode. If the user is playing, the `unique_ptr` remains uninitialized. If the AI is playing, the constructor initializes the `unique_ptr` and the instance of player.
-3. `player.h` and `player.cpp`. The `Player` class is initialized with pointer addresses to the food and snake objects. Since the instance is allocated on the heap, calls to the class constructor and destructor are signaled to the console. The method `void play()` runs a simple search for the food and generate a key press event to set the direction of the snake.
+2. The project accepts user input and processes the input.
+    The project accepts input from a user as part of the necessary operation of the program.
 
+Reponse: Please refer to `main.cpp` lines 14-26.
 
-## Rubric Points
+3. The project uses Object Oriented Programming techniques.
+    The project code is organized into classes with class attributes to hold the data, and class methods to perform tasks.
 
-### Loops, Functions, I/O
-|Criteria| Description|
-|--------|------------|
-|The project demonstrates an understanding of C++ functions and control structures.|The initialization of the player is managed by `Game::SetPlayer()` and its execution by `Player::play()`. These functions package the core aspects of the functionality added, resulting in very minimal changes to the original code base.|
-|The project accepts user input and processes the input.|I read the user's choice of game mode with `cin`, code the control flow defensively, and pass the choice of mode to the `Game` constructor.|
+Reponse: New class `gamer.h` and `gamer.cpp` have been created using Object Oriented Programming techniques.
 
-### Object Oriented Programming
-|Criteria| Description|
-|--------|------------|
-|The project uses Object Oriented Programming techniques.|I create a new class `Player` to manage the self-playing functioanility, which include both the strategy and pushing events to SDL. Furthermore, I compose this class with `Game` to model the relationship "`Game` has a `Player`".|
-|Classes use appropriate access specifiers for class members.|`Game` has a private unique pointer to its `Player` instance. Furthermore, `Player` contains a public `void play()` that is called from `Game::Run`. Its pointers to food and snake, however, are kept private since they are only necessary to implement the play method. |
-|Class constructors utilize member initialization lists.|`Player`'s constructor uses initialization lists to define its private pointers.|
-|Classes abstract implementation details from their interfaces.| `Player::play` abstracts the details of the player's strategies. `main` never sees the player and `Game` merely calls this function.|
-|Classes follow an appropriate inheritance hierarchy.|`Game` and `Player` are composed since neither would logically inhereit from the other.|
+4. Classes use appropriate access specifiers for class members.
+   All class data members are explicitly specified as public, protected, or private.
 
-### Memory Management
-|Criteria| Description|
-|--------|------------|
-|The project uses scope / Resource Acquisition Is Initialization (RAII) where appropriate.|`Game` instances on self-playing mode utilize RAII with respect to its heap-allocated `Player` member. `Game`'s contructor initializes the unique pointer to the `Player` that the instance owns. Due to the utilization of a smart pointer, the player instance is deallocated when the pointer goes out of code (i.e., when the `Game` instance is destroyed).|
-|The project uses smart pointers instead of raw pointers.|I use smart pointers as appropriate (see above). I use raw pointers when the receiving object needs read-only access to the data, which I explicitly enforce by declaring snake and food as `const` in the `Player` constructor. |
+Reponse: Please refer to new class `gamer.h` and `gamer.cpp`.
+
+5. The project makes use of references in function declarations.
+   At least two variables are defined as references, or two functions use pass-by-reference in the project code.
+
+Reponse: Please refer to initial code at Line 46 of `snake.cpp`.
+
+6. Class constructors utilize member initialization lists.
+   All class members that are set to argument values are initialized through member initialization lists.
+
+Reponse: Please refer to line 4 of `gamer.cpp` 
+
+7. Classes abstract implementation details from their interfaces.
+   All class member functions document their effects, either through function names, comments, or formal documentation. Member functions do   not change program state in undocumented ways.
+
+Reponse: In line 12 of `gamer.cpp`, Gamer::play abstracts the details of the player's strategies.
+
+8. The project uses smart pointers instead of raw pointers.
+   The project uses at least one smart pointer: unique_ptr, shared_ptr, or weak_ptr. The project does not use raw pointers.
+   
+Reponse: Please refer to line 23 of `game.h` 
